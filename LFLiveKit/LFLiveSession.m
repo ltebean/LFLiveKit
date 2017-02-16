@@ -14,7 +14,6 @@
 #import "LFH264VideoEncoder.h"
 #import "LFStreamRTMPSocket.h"
 #import "LFLiveStreamInfo.h"
-#import "LFGPUImageBeautyFilter.h"
 #import "LFH264VideoEncoder.h"
 
 
@@ -355,13 +354,7 @@
 }
 
 - (LFVideoCapture *)videoCaptureSource {
-    if (!_videoCaptureSource) {
-        if(self.captureType & LFLiveCaptureMaskVideo){
-            _videoCaptureSource = [[LFVideoCapture alloc] initWithVideoConfiguration:_videoConfiguration];
-            _videoCaptureSource.delegate = self;
-        }
-    }
-    return _videoCaptureSource;
+    return nil;
 }
 
 - (id<LFAudioEncoding>)audioEncoder {

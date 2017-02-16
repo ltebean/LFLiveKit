@@ -79,6 +79,5 @@
    The designated initializer. Multiple instances with the same configuration will make the
    capture unstable.
  */
-- (nullable instancetype)initWithVideoConfiguration:(nullable LFLiveVideoConfiguration *)configuration NS_DESIGNATED_INITIALIZER;
 
 @end

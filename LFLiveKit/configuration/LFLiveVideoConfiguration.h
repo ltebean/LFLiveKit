@@ -12,7 +12,7 @@
 /// 视频分辨率(都是16：9 当此设备不支持当前分辨率，自动降低一级)
 typedef NS_ENUM (NSUInteger, LFLiveVideoSessionPreset){
     /// 低分辨率
-    LFCaptureSessionPreset360x640 = 0,
+    LFCaptureSessionPreset480x640 = 0,
     /// 中分辨率
     LFCaptureSessionPreset540x960 = 1,
     /// 高分辨率

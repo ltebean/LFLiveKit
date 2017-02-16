@@ -28,36 +28,36 @@
     LFLiveVideoConfiguration *configuration = [LFLiveVideoConfiguration new];
     switch (videoQuality) {
     case LFLiveVideoQuality_Low1:{
-        configuration.sessionPreset = LFCaptureSessionPreset360x640;
+        configuration.sessionPreset = LFCaptureSessionPreset480x640;
         configuration.videoFrameRate = 15;
         configuration.videoMaxFrameRate = 15;
         configuration.videoMinFrameRate = 10;
         configuration.videoBitRate = 500 * 1000;
         configuration.videoMaxBitRate = 600 * 1000;
         configuration.videoMinBitRate = 400 * 1000;
-        configuration.videoSize = CGSizeMake(360, 640);
+        configuration.videoSize = CGSizeMake(480, 640);
     }
         break;
     case LFLiveVideoQuality_Low2:{
-        configuration.sessionPreset = LFCaptureSessionPreset360x640;
+        configuration.sessionPreset = LFCaptureSessionPreset480x640;
         configuration.videoFrameRate = 24;
         configuration.videoMaxFrameRate = 24;
         configuration.videoMinFrameRate = 12;
         configuration.videoBitRate = 600 * 1000;
         configuration.videoMaxBitRate = 720 * 1000;
         configuration.videoMinBitRate = 500 * 1000;
-        configuration.videoSize = CGSizeMake(360, 640);
+        configuration.videoSize = CGSizeMake(480, 640);
     }
         break;
     case LFLiveVideoQuality_Low3: {
-        configuration.sessionPreset = LFCaptureSessionPreset360x640;
+        configuration.sessionPreset = LFCaptureSessionPreset480x640;
         configuration.videoFrameRate = 30;
         configuration.videoMaxFrameRate = 30;
         configuration.videoMinFrameRate = 15;
         configuration.videoBitRate = 800 * 1000;
         configuration.videoMaxBitRate = 960 * 1000;
         configuration.videoMinBitRate = 600 * 1000;
-        configuration.videoSize = CGSizeMake(360, 640);
+        configuration.videoSize = CGSizeMake(480, 640);
     }
         break;
     case LFLiveVideoQuality_Medium1:{
@@ -146,7 +146,7 @@
 - (NSString *)avSessionPreset {
     NSString *avSessionPreset = nil;
     switch (self.sessionPreset) {
-    case LFCaptureSessionPreset360x640:{
+    case LFCaptureSessionPreset480x640:{
         avSessionPreset = AVCaptureSessionPreset640x480;
     }
         break;
@@ -204,38 +204,14 @@
 
 #pragma mark -- Custom Method
 - (LFLiveVideoSessionPreset)supportSessionPreset:(LFLiveVideoSessionPreset)sessionPreset {
-    AVCaptureSession *session = [[AVCaptureSession alloc] init];
-    AVCaptureDevice *inputCamera;
-    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
-    for (AVCaptureDevice *device in devices){
-        if ([device position] == AVCaptureDevicePositionFront){
-            inputCamera = device;
-        }
-    }
-    AVCaptureDeviceInput *videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:inputCamera error:nil];
-    
-    if ([session canAddInput:videoInput]){
-        [session addInput:videoInput];
-    }
-    
-    if (![session canSetSessionPreset:self.avSessionPreset]) {
-        if (sessionPreset == LFCaptureSessionPreset720x1280) {
-            sessionPreset = LFCaptureSessionPreset540x960;
-            if (![session canSetSessionPreset:self.avSessionPreset]) {
-                sessionPreset = LFCaptureSessionPreset360x640;
-            }
-        } else if (sessionPreset == LFCaptureSessionPreset540x960) {
-            sessionPreset = LFCaptureSessionPreset360x640;
-        }
-    }
     return sessionPreset;
 }
 
 - (CGSize)captureOutVideoSize{
     CGSize videoSize = CGSizeZero;
     switch (_sessionPreset) {
-        case LFCaptureSessionPreset360x640:{
-            videoSize = CGSizeMake(360, 640);
+        case LFCaptureSessionPreset480x640:{
+            videoSize = CGSizeMake(480, 640);
         }
             break;
         case LFCaptureSessionPreset540x960:{
@@ -248,7 +224,7 @@
             break;
             
         default:{
-            videoSize = CGSizeMake(360, 640);
+            videoSize = CGSizeMake(480, 640);
         }
             break;
     }
