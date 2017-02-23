@@ -120,6 +120,21 @@
     }
 }
 
+- (void)pushAudioBuffer:(CMSampleBufferRef)sampleBuffer {
+    CMBlockBufferRef blockBuffer = CMSampleBufferGetDataBuffer(sampleBuffer);
+    AudioBufferList audioBufferList;
+    CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(sampleBuffer, NULL, &audioBufferList, sizeof(AudioBufferList), NULL, NULL, kCMSampleBufferFlag_AudioBufferList_Assure16ByteAlignment, &blockBuffer);
+    
+    AudioBuffer audioBuffer = audioBufferList.mBuffers[0];
+    NSData *audioData = [NSData dataWithBytes:audioBuffer.mData length:audioBuffer.mDataByteSize];
+    if(self.captureType & LFLiveInputMaskAudio){
+        if (self.uploading) [self.audioEncoder encodeAudioData:audioData timeStamp:NOW];
+    }
+    if (blockBuffer != NULL)	{
+        CFRelease(blockBuffer);
+    }
+}
+
 #pragma mark -- PrivateMethod
 - (void)pushSendBuffer:(LFFrame*)frame{
     if(self.relativeTimestamps == 0){
