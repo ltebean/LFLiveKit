@@ -65,7 +65,7 @@ NSString *const LFAudioComponentFailedToCreateNotification = @"LFAudioComponentF
         AudioUnitSetProperty(self.componetInstance, kAudioOutputUnitProperty_EnableIO, kAudioUnitScope_Input, 1, &flagOne, sizeof(flagOne));
         
         AudioStreamBasicDescription desc = {0};
-        desc.mSampleRate = _configuration.audioSampleRate * 0.7;
+        desc.mSampleRate = _configuration.audioSampleRate * 1;
         desc.mFormatID = kAudioFormatLinearPCM;
         desc.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked;
         desc.mChannelsPerFrame = (UInt32)_configuration.numberOfChannels;
@@ -86,7 +86,7 @@ NSString *const LFAudioComponentFailedToCreateNotification = @"LFAudioComponentF
             [self handleAudioComponentCreationFailure];
         }
         
-        [session setPreferredSampleRate:_configuration.audioSampleRate * 0.7 error:nil];
+        [session setPreferredSampleRate:_configuration.audioSampleRate * 1 error:nil];
         [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker | AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers error:nil];
         [session setActive:YES withOptions:kAudioSessionSetActiveFlag_NotifyOthersOnDeactivation error:nil];
         
